@@ -1,72 +1,185 @@
-# Project Name
+# Proyecto 2 simulacion de Terminal Unix
 
-> One paragraph statement about the project.
+> Este proyecto consiste en una implementación completa de una terminal Unix simulada desarrollada exclusivamente en C++ utilizando únicamente la librería iostream, donde se ha diseñado un sistema de archivos jerárquico mediante estructuras de datos dinámicas personalizadas como listas enlazadas de caracteres para representar nombres y contenido, evitando completamente el uso de arreglos y bibliotecas estándar de manejo de strings, logrando así una solución que cumple con restricciones académicas específicas mientras proporciona funcionalidades esenciales como navegación entre directorios, creación de archivos y carpetas, movimientos y renombrado de elementos, y un editor de texto básico con persistencia en memoria.
 
-![Static Badge](https://img.shields.io/badge/linux-FCC624?style=for-the-badge&logo=linux&logoColor=FCC624&logoSize=auto&labelColor=black) ![Static Badge](https://img.shields.io/badge/ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=E95420&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/kali%20linux-557C94?style=for-the-badge&logo=kalilinux&logoColor=557C94&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/gnu%20bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=4EAA25&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=F05032&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=181717&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/visual%20studio%20code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=007ACC&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/html%205-E34F26?style=for-the-badge&logo=html5&logoColor=E34F26&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/css%203-1572B6?style=for-the-badge&logo=css3&logoColor=1572B6&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/lighthouse-F44B21?style=for-the-badge&logo=lighthouse&logoColor=F44B21&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=F7DF1E&logoSize=auto&labelColor=black) ![Static Badge](https://img.shields.io/badge/node.js-5FA04E?style=for-the-badge&logo=nodedotjs&logoColor=5FA04E&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=CB3837&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/jest-C21325?style=for-the-badge&logo=jest&logoColor=C21325&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=CC342D&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/ruby%20gems-E9573F?style=for-the-badge&logo=rubygems&logoColor=E9573F&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/rubo%20cop-000000?style=for-the-badge&logo=rubocop&logoColor=000000&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/svg-FFB13B?style=for-the-badge&logo=svg&logoColor=FFB13B&logoSize=auto&labelColor=black) ![Static Badge](https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=4169E1&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=4479A1&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/Ruby%20on%20Rails-D30001?style=for-the-badge&logo=rubyonrails&logoColor=D30001&labelColor=white) ![Static Badge](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=61DAFB&logoSize=auto&labelColor=black) ![Static Badge](https://img.shields.io/badge/mongo%20db-47A248?style=for-the-badge&logo=mongodb&logoColor=47A248&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=000000&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=880000&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/.env-ECD53F?style=for-the-badge&logo=dotenv&logoColor=ECD53F&logoSize=auto&labelColor=black) ![Static Badge](https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=7952B3&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=0769AD&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/sass-CC6699?style=for-the-badge&logo=sass&logoColor=CC6699&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=764ABC&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/json-000000?style=for-the-badge&logo=json&logoColor=000000&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/chai-A30701?style=for-the-badge&logo=chai&logoColor=A30701&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=3776AB&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=013243&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/tensorflow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=FF6F00&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/csharp-512BD4?style=for-the-badge&logo=csharp&logoColor=512BD4&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/xampp-FB7A24?style=for-the-badge&logo=xampp&logoColor=%23FB7A24&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/php-%23777BB4?style=for-the-badge&logo=php&logoColor=%23777BB4&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/phpmyadmin-%236C78AF?style=for-the-badge&logo=phpmyadmin&logoColor=%236C78AF&logoSize=auto&labelColor=white)
+![Static Badge](https://img.shields.io/badge/gnu%20bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=4EAA25&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=F05032&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=181717&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/visual%20studio%20code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=007ACC&logoSize=auto&labelColor=white) ![Static Badge](https://img.shields.io/badge/c++-00599C?style=for-the-badge&logo=c++&logoColor=#00599C&logoSize=auto&labelColor=white)
 
-![screenshot](./app_screenshot.png)
+![screenshot](./app_screenshot_1.png)
 
-Additional description about the project and its features.
+### Descripción Adicional del Proyecto y sus Características
+Este proyecto implementa un sistema de terminal Unix completo que simula un entorno de línea de comandos para la gestión de un sistema de archivos virtual. La solución destaca por su arquitectura única que utiliza exclusivamente estructuras de datos dinámicas personalizadas, evitando cualquier dependencia de bibliotecas estándar de C++ para manejo de cadenas y contenedores. El sistema permite la creación, navegación, modificación y organización jerárquica de archivos y directorios, incluyendo un editor de texto integrado que soporta múltiples líneas. Todas las rutas funcionan tanto en formato absoluto como relativo, y la implementación garantiza la liberación adecuada de memoria mediante funciones recursivas de limpieza.
 
-## Built With
+### Características Principales:
 
-- Major languages
-- Frameworks
-- Technologies used
+- Sistema de archivos jerárquico con soporte para carpetas y archivos de texto
 
-## Live Demo
+- Comandos Unix completos: ls, cd, mkdir, touch, mv, cat, edit, exit
 
-[Live Demo Link](https://livedemo.com)
+- Rutas absolutas y relativas con navegación mediante "..", "." y "/"
 
-## Getting Started
+- Editor de texto integrado para crear y modificar contenido de archivos
 
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
+- Operaciones de movimiento y renombrado que preservan la estructura jerárquica
 
-To get a local copy up and running follow these simple example steps.
+- Gestión de memoria manual sin fugas de memoria
 
-### Prerequisites
+- Interfaz de usuario intuitiva con prompt dinámico que muestra la ruta actual
 
-### Setup
+## Construido Con
+### Lenguajes Principales
 
-### Install
+- C++ (estándar, sin extensiones específicas)
 
-### Usage
+### Tecnologías Utilizadas
 
-### Run tests
+- Solo iostream para entrada/salida básica
 
-### Deployment
+- Estructuras de datos dinámicas personalizadas (listas enlazadas)
 
-## Authors
+- Programación estructurada
 
-👤 **Arístides José Molina Pérez**
+- Gestión manual de memoria (new/delete)
 
-- GitHub: [@aristides1000](https://github.com/aristides1000)
-- Twitter: [@aristides_1000](https://twitter.com/aristides_1000)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/aristides-molina/)
+### Restricciones Implementadas:
 
-👤 **Author2**
+✅ Sin uso de arreglos (arrays)
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/linkedinhandle)
+✅ Sin bibliotecas estándar de strings o contenedores
 
-## 🤝 Contributing
+✅ Solo librería iostream permitida
 
-Contributions, issues, and feature requests are welcome!
+✅ Todas las estructuras implementadas manualmente
 
-Feel free to check the [issues page](../../issues/).
+### Comenzando
 
-## Show your support
+Esta es una guía para configurar y ejecutar el proyecto localmente.
 
-Give a ⭐️ if you like this project!
+### Prerrequisitos
+
+- Compilador de C++ (g++, clang++, o MSVC)
+
+- Sistema operativo: Cualquier sistema que soporte C++ (Windows, Linux, macOS)
+
+- Editor de código (opcional pero recomendado: Visual Studio Code)
+
+- Terminal/Consola para ejecución
+
+### Configuración
+
+- Clonar el repositorio (si aplica)
+
+> bash
+```
+git clone <url-del-repositorio>
+cd <nombre-del-directorio>
+```
+
+### Instalación
+
+No se requiere instalación de dependencias externas. El proyecto es autocontenido en un solo archivo.
+
+## Uso
+
+### Compilar el programa:
+
+>bash
+
+```
+g++ -o terminal_unix terminal_unix.cpp
+```
+
+o con clang:
+
+>bash
+
+```
+clang++ -o terminal_unix terminal_unix.cpp
+```
+
+### Ejecutar el programa:
+
+>bash
+```
+./terminal_unix
+```
+
+### Comandos disponibles:
+
+>text
+```
+ls                     - Listar contenido del directorio actual
+cd <ruta>             - Cambiar directorio (soporta rutas absolutas y relativas)
+mkdir <nombre>        - Crear nueva carpeta
+touch <nombre>        - Crear nuevo archivo
+mv <origen> <destino> - Mover/renombrar archivo o carpeta
+cat <archivo>         - Mostrar contenido de archivo
+edit <archivo>        - Editar contenido de archivo
+exit                  - Salir del programa
+```
+
+### Ejecutar Pruebas
+
+Actualmente no hay un sistema de pruebas automatizado implementado. Se recomienda probar manualmente los comandos:
+
+### Prueba básica de navegación:
+
+>text
+```
+mkdir prueba
+cd prueba
+touch archivo.txt
+ls
+```
+
+### Prueba de editor:
+
+>text
+
+```
+edit archivo.txt
+[Escribir contenido y terminar con línea vacía]
+cat archivo.txt
+```
+
+### Prueba de movimientos:
+
+>text
+```
+mv archivo.txt nuevo_nombre.txt
+ls
+```
+
+### Despliegue
+
+Este es un programa de consola autocontenido que no requiere despliegue en servidores. Simplemente:
+
+- Compilar en el sistema destino
+
+- Ejecutar el binario generado
+
+- El programa funciona completamente en memoria, sin requerir archivos externos ni configuración
+
+> Nota: Al salir del programa (comando exit), toda la estructura de archivos creada se pierde ya que está almacenada solo en memoria. Una extensión futura podría incluir persistencia en disco.
+
+👤 **Fabian Morales**
+
+- GitHub: [@fabax360](https://github.com/fabax360)
+
+## 🤝 Contribuciones
+
+¡Agradecemos sus contribuciones, problemas y solicitudes de funciones!
+
+No dude en consultar la [issues page](../../issues/).
+
+## Muestra tu apoyo
+
+¡Dale un ⭐️ si te gusta este proyecto!
 
 ## Acknowledgments
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
+- A mi familia
+- A Dios ante todo
 
-## 📝 License
+## 📝 Licencia
 
-This project is [CC0 1.0 Universal](LICENSE) licensed.
+Este proyecto tiene la licencia [CC0 1.0 Universal](LICENCIA).
