@@ -372,3 +372,177 @@ void comandoCd(Nodo* &actual, Nodo* raiz, ListaCaracteres* ruta) {
     liberarListaCaracteres(actualStr);
     liberarListaCaracteres(ruta);
 }
+
+void comandoMv(Nodo* actual, ListaCaracteres* origenStr, ListaCaracteres* destinoStr) {
+    if (!origenStr || !destinoStr) {
+        cout << "Error: Parametros invalidos.\n";
+        if (origenStr) liberarListaCaracteres(origenStr);
+        if (destinoStr) liberarListaCaracteres(destinoStr);
+        return;
+    }
+    
+    // Buscar el nodo origen en el directorio actual
+    Nodo* origen = buscarEnCarpeta(actual, origenStr);
+    if (!origen) {
+        cout << "Error: Elemento origen no encontrado.\n";
+        liberarListaCaracteres(origenStr);
+        liberarListaCaracteres(destinoStr);
+        return;
+    }
+    
+    // Buscar si el destino existe como carpeta
+    Nodo* destinoCarpeta = buscarEnCarpeta(actual, destinoStr);
+    
+    if (destinoCarpeta && destinoCarpeta->esCarpeta) {
+        // Mover a otra carpeta
+        if (buscarEnCarpeta(destinoCarpeta, origen->nombre)) {
+            cout << "Error: Ya existe un elemento con ese nombre en el directorio destino.\n";
+        } else {
+            desconectarNodo(origen);
+            insertarHijo(destinoCarpeta, origen);
+            cout << "Elemento movido exitosamente.\n";
+        }
+    } else {
+        // Renombrar
+        if (buscarEnCarpeta(actual, destinoStr)) {
+            cout << "Error: Ya existe un elemento con ese nombre.\n";
+        } else {
+            liberarListaCaracteres(origen->nombre);
+            origen->nombre = copiarListaCaracteres(destinoStr);
+            cout << "Elemento renombrado exitosamente.\n";
+        }
+    }
+    
+    liberarListaCaracteres(origenStr);
+    liberarListaCaracteres(destinoStr);
+}
+
+// EDITOR DE TEXTO CORREGIDO
+void comandoEdit(Nodo* actual, ListaCaracteres* nombre) {
+    if (!actual || !nombre) {
+        cout << "Error: Parametros invalidos.\n";
+        if (nombre) liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    Nodo* archivo = buscarEnCarpeta(actual, nombre);
+    if (!archivo) {
+        cout << "Error: Archivo no encontrado.\n";
+        liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    if (archivo->esCarpeta) {
+        cout << "Error: No se puede editar una carpeta.\n";
+        liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    cout << "Editando archivo '";
+    imprimirLista(archivo->nombre);
+    cout << "' (presione Enter en una linea vacia para terminar):\n";
+    
+    // IMPORTANTE: Limpiar el buffer antes de empezar a leer
+    limpiarBuffer();
+    
+    // Liberar contenido anterior si existe
+    if (archivo->contenido) {
+        liberarListaCaracteres(archivo->contenido);
+        archivo->contenido = nullptr;
+    }
+    
+    ListaCaracteres* contenidoTotal = new ListaCaracteres;
+    bool primeraLinea = true;
+    
+    while (true) {
+        cout << "> ";
+        ListaCaracteres* linea = leerLinea();
+        
+        // Si línea es nullptr o vacía, terminar
+        if (!linea || listaVacia(linea)) {
+            if (linea) liberarListaCaracteres(linea);
+            break;
+        }
+        
+        // Agregar salto de línea si no es la primera línea
+        if (!primeraLinea) {
+            StringDinamico* saltoLinea = new StringDinamico;
+            saltoLinea->caracter = '\n';
+            saltoLinea->siguiente = nullptr;
+            
+            if (!contenidoTotal->primero) {
+                contenidoTotal->primero = saltoLinea;
+                contenidoTotal->ultimo = saltoLinea;
+            } else {
+                contenidoTotal->ultimo->siguiente = saltoLinea;
+                contenidoTotal->ultimo = saltoLinea;
+            }
+        }
+        
+        // Agregar contenido de la línea
+        StringDinamico* charActual = linea->primero;
+        while (charActual != nullptr) {
+            StringDinamico* nuevo = new StringDinamico;
+            nuevo->caracter = charActual->caracter;
+            nuevo->siguiente = nullptr;
+            
+            if (!contenidoTotal->primero) {
+                contenidoTotal->primero = nuevo;
+                contenidoTotal->ultimo = nuevo;
+            } else {
+                contenidoTotal->ultimo->siguiente = nuevo;
+                contenidoTotal->ultimo = nuevo;
+            }
+            
+            charActual = charActual->siguiente;
+        }
+        
+        primeraLinea = false;
+        liberarListaCaracteres(linea);
+    }
+    
+    archivo->contenido = contenidoTotal;
+    cout << "Contenido guardado exitosamente.\n";
+    liberarListaCaracteres(nombre);
+}
+
+void comandoCat(Nodo* actual, ListaCaracteres* nombre) {
+    if (!actual || !nombre) {
+        cout << "Error: Parametros invalidos.\n";
+        if (nombre) liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    Nodo* archivo = buscarEnCarpeta(actual, nombre);
+    if (!archivo) {
+        cout << "Error: Archivo no encontrado.\n";
+        liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    if (archivo->esCarpeta) {
+        cout << "Error: No se puede mostrar contenido de una carpeta.\n";
+        liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    if (!archivo->contenido || !archivo->contenido->primero) {
+        cout << "(archivo vacio)\n";
+    } else {
+        imprimirLista(archivo->contenido);
+        cout << "\n";
+    }
+    liberarListaCaracteres(nombre);
+}
+
+void imprimirRuta(Nodo* actual) {
+    if (!actual) return;
+    
+    if (actual->padre == nullptr) {
+        cout << "/";
+        return;
+    }
+    imprimirRuta(actual->padre);
+    if (actual->padre->padre != nullptr) cout << "/";
+    imprimirLista(actual->nombre);
+}
