@@ -214,3 +214,54 @@ void limpiarBuffer() {
 bool listaVacia(ListaCaracteres* lista) {
     return !lista || !lista->primero;
 }
+
+// --- FUNCIONES DEL SISTEMA DE ARCHIVOS ---
+
+Nodo* buscarEnCarpeta(Nodo* carpeta, ListaCaracteres* nombre) {
+    if (!carpeta) return nullptr;
+    
+    Nodo* aux = carpeta->primerHijo;
+    while (aux != nullptr) {
+        if (compararListas(aux->nombre, nombre)) return aux;
+        aux = aux->siguienteHijo;
+    }
+    return nullptr;
+}
+
+void insertarHijo(Nodo* padre, Nodo* nuevo) {
+    if (!padre) return;
+    
+    if (padre->primerHijo == nullptr) {
+        padre->primerHijo = nuevo;
+    } else {
+        Nodo* aux = padre->primerHijo;
+        while (aux->siguienteHijo != nullptr) {
+            aux = aux->siguienteHijo;
+        }
+        aux->siguienteHijo = nuevo;
+    }
+    nuevo->padre = padre;
+}
+
+// Función para desconectar un nodo de su padre
+void desconectarNodo(Nodo* nodo) {
+    if (!nodo || !nodo->padre) return;
+    
+    Nodo* padre = nodo->padre;
+    
+    // Caso 1: Es el primer hijo
+    if (padre->primerHijo == nodo) {
+        padre->primerHijo = nodo->siguienteHijo;
+    } 
+    // Caso 2: Está en medio o al final
+    else {
+        Nodo* actual = padre->primerHijo;
+        while (actual && actual->siguienteHijo != nodo) {
+            actual = actual->siguienteHijo;
+        }
+        if (actual) {
+            actual->siguienteHijo = nodo->siguienteHijo;
+        }
+    }
+    nodo->siguienteHijo = nullptr;
+}
