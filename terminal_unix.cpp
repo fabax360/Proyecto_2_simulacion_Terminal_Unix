@@ -121,3 +121,96 @@ void liberarListaCaracteres(ListaCaracteres* lista) {
     }
     delete lista;
 }
+
+// Función para leer una palabra (token)
+ListaCaracteres* leerPalabra() {
+    ListaCaracteres* lista = new ListaCaracteres;
+    char c;
+    
+    // Leer primer carácter
+    if (!cin.get(c)) {
+        delete lista;
+        return nullptr;
+    }
+    
+    // Si es espacio o salto de línea, saltar hasta encontrar un carácter válido
+    if (c == ' ' || c == '\t' || c == '\n') {
+        while (c == ' ' || c == '\t' || c == '\n') {
+            if (!cin.get(c)) {
+                delete lista;
+                return nullptr;
+            }
+        }
+    }
+    
+    // Primer carácter válido
+    StringDinamico* nuevo = new StringDinamico;
+    nuevo->caracter = c;
+    nuevo->siguiente = nullptr;
+    lista->primero = nuevo;
+    lista->ultimo = nuevo;
+    
+    // Leer resto de la palabra
+    while (cin.get(c) && c != ' ' && c != '\t' && c != '\n') {
+        nuevo = new StringDinamico;
+        nuevo->caracter = c;
+        nuevo->siguiente = nullptr;
+        lista->ultimo->siguiente = nuevo;
+        lista->ultimo = nuevo;
+    }
+    
+    // Si leímos un espacio o salto de línea, devolverlo
+    if (c == ' ' || c == '\t' || c == '\n') {
+        cin.putback(c);
+    }
+    
+    return lista;
+}
+
+// NUEVA FUNCIÓN MEJORADA PARA LEER LÍNEA
+ListaCaracteres* leerLinea() {
+    ListaCaracteres* lista = new ListaCaracteres;
+    char c;
+    
+    // Leer primer carácter
+    if (!cin.get(c)) {
+        delete lista;
+        return nullptr;
+    }
+    
+    // Si el primer carácter es salto de línea, es línea vacía
+    if (c == '\n') {
+        delete lista;
+        return nullptr;
+    }
+    
+    // Primer carácter de la línea
+    StringDinamico* nuevo = new StringDinamico;
+    nuevo->caracter = c;
+    nuevo->siguiente = nullptr;
+    lista->primero = nuevo;
+    lista->ultimo = nuevo;
+    
+    // Leer resto de la línea
+    while (cin.get(c) && c != '\n') {
+        nuevo = new StringDinamico;
+        nuevo->caracter = c;
+        nuevo->siguiente = nullptr;
+        lista->ultimo->siguiente = nuevo;
+        lista->ultimo = nuevo;
+    }
+    
+    return lista;
+}
+
+// Limpiar el buffer de entrada
+void limpiarBuffer() {
+    char c;
+    while (cin.get(c) && c != '\n') {
+        // Consumir caracteres
+    }
+}
+
+bool listaVacia(ListaCaracteres* lista) {
+    return !lista || !lista->primero;
+}
