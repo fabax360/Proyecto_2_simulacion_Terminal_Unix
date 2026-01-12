@@ -546,3 +546,14 @@ void imprimirRuta(Nodo* actual) {
     if (actual->padre->padre != nullptr) cout << "/";
     imprimirLista(actual->nombre);
 }
+
+// --- MEMORIA ---
+
+void liberarMemoria(Nodo* n) {
+    if (!n) return;
+    liberarMemoria(n->primerHijo);
+    liberarMemoria(n->siguienteHijo);
+    liberarListaCaracteres(n->nombre);
+    if (n->contenido) liberarListaCaracteres(n->contenido);
+    delete n;
+}
