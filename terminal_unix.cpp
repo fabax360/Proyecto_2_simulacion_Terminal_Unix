@@ -557,3 +557,141 @@ void liberarMemoria(Nodo* n) {
     if (n->contenido) liberarListaCaracteres(n->contenido);
     delete n;
 }
+
+// --- MAIN SIMPLIFICADO ---
+
+int main() {
+    ListaCaracteres* nombreRaiz = crearListaDesdeConstante("root");
+    Nodo* raiz = new Nodo(nombreRaiz, true, nullptr);
+    liberarListaCaracteres(nombreRaiz);
+    Nodo* actual = raiz;
+    
+    cout << "=== Terminal Unix Simulada ===\n";
+    cout << "Comandos: ls, cd <dir>, mkdir <nombre>, touch <nombre>\n";
+    cout << "          mv <origen> <destino>, cat <archivo>, edit <archivo>\n";
+    cout << "          exit\n";
+    cout << "==============================\n\n";
+    
+    while (true) {
+        imprimirRuta(actual);
+        cout << " $ ";
+        
+        ListaCaracteres* comando = leerPalabra();
+        if (!comando || listaVacia(comando)) {
+            if (comando) liberarListaCaracteres(comando);
+            limpiarBuffer();
+            continue;
+        }
+        
+        // Comparar comando
+        ListaCaracteres* exitCmd = crearListaDesdeConstante("exit");
+        ListaCaracteres* lsCmd = crearListaDesdeConstante("ls");
+        ListaCaracteres* mkdirCmd = crearListaDesdeConstante("mkdir");
+        ListaCaracteres* touchCmd = crearListaDesdeConstante("touch");
+        ListaCaracteres* cdCmd = crearListaDesdeConstante("cd");
+        ListaCaracteres* mvCmd = crearListaDesdeConstante("mv");
+        ListaCaracteres* catCmd = crearListaDesdeConstante("cat");
+        ListaCaracteres* editCmd = crearListaDesdeConstante("edit");
+        
+        if (compararListas(comando, exitCmd)) {
+            liberarListaCaracteres(comando);
+            liberarListaCaracteres(exitCmd);
+            liberarListaCaracteres(lsCmd);
+            liberarListaCaracteres(mkdirCmd);
+            liberarListaCaracteres(touchCmd);
+            liberarListaCaracteres(cdCmd);
+            liberarListaCaracteres(mvCmd);
+            liberarListaCaracteres(catCmd);
+            liberarListaCaracteres(editCmd);
+            break;
+        }
+        else if (compararListas(comando, lsCmd)) {
+            comandoLs(actual);
+            limpiarBuffer();
+        }
+        else if (compararListas(comando, mkdirCmd)) {
+            ListaCaracteres* arg = leerPalabra();
+            if (arg && !listaVacia(arg)) {
+                comandoMkdir(actual, arg);
+            } else {
+                cout << "Error: Debe especificar un nombre.\n";
+                if (arg) liberarListaCaracteres(arg);
+            }
+            limpiarBuffer();
+        }
+        else if (compararListas(comando, touchCmd)) {
+            ListaCaracteres* arg = leerPalabra();
+            if (arg && !listaVacia(arg)) {
+                comandoTouch(actual, arg);
+            } else {
+                cout << "Error: Debe especificar un nombre.\n";
+                if (arg) liberarListaCaracteres(arg);
+            }
+            limpiarBuffer();
+        }
+        else if (compararListas(comando, cdCmd)) {
+            ListaCaracteres* arg = leerPalabra();
+            if (arg && !listaVacia(arg)) {
+                comandoCd(actual, raiz, arg);
+            } else {
+                cout << "Error: Debe especificar un directorio.\n";
+                if (arg) liberarListaCaracteres(arg);
+            }
+            limpiarBuffer();
+        }
+        else if (compararListas(comando, mvCmd)) {
+            ListaCaracteres* arg1 = leerPalabra();
+            ListaCaracteres* arg2 = leerPalabra();
+            if (arg1 && arg2 && !listaVacia(arg1) && !listaVacia(arg2)) {
+                comandoMv(actual, arg1, arg2);
+            } else {
+                cout << "Error: Debe especificar origen y destino.\n";
+                if (arg1) liberarListaCaracteres(arg1);
+                if (arg2) liberarListaCaracteres(arg2);
+            }
+            limpiarBuffer();
+        }
+        else if (compararListas(comando, catCmd)) {
+            ListaCaracteres* arg = leerPalabra();
+            if (arg && !listaVacia(arg)) {
+                comandoCat(actual, arg);
+            } else {
+                cout << "Error: Debe especificar un archivo.\n";
+                if (arg) liberarListaCaracteres(arg);
+            }
+            limpiarBuffer();
+        }
+        else if (compararListas(comando, editCmd)) {
+            ListaCaracteres* arg = leerPalabra();
+            if (arg && !listaVacia(arg)) {
+                comandoEdit(actual, arg);
+                // No llamamos a limpiarBuffer aquí porque el editor ya lo maneja
+            } else {
+                cout << "Error: Debe especificar un archivo.\n";
+                if (arg) liberarListaCaracteres(arg);
+                limpiarBuffer();
+            }
+        }
+        else {
+            cout << "Comando desconocido: ";
+            imprimirLista(comando);
+            cout << "\n";
+            limpiarBuffer();
+        }
+        
+        // Liberar memoria
+        liberarListaCaracteres(comando);
+        liberarListaCaracteres(exitCmd);
+        liberarListaCaracteres(lsCmd);
+        liberarListaCaracteres(mkdirCmd);
+        liberarListaCaracteres(touchCmd);
+        liberarListaCaracteres(cdCmd);
+        liberarListaCaracteres(mvCmd);
+        liberarListaCaracteres(catCmd);
+        liberarListaCaracteres(editCmd);
+    }
+    
+    liberarMemoria(raiz);
+    cout << "\nSaliendo...\n";
+    return 0;
+}
