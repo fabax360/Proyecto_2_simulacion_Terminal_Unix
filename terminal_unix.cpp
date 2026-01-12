@@ -265,3 +265,110 @@ void desconectarNodo(Nodo* nodo) {
     }
     nodo->siguienteHijo = nullptr;
 }
+
+// --- COMANDOS ---
+
+void comandoLs(Nodo* actual) {
+    if (!actual) return;
+    
+    Nodo* aux = actual->primerHijo;
+    if (!aux) {
+        cout << "(directorio vacio)\n";
+        return;
+    }
+    
+    while (aux != nullptr) {
+        if (aux->esCarpeta) cout << "[DIR]  ";
+        else cout << "[FILE] ";
+        imprimirLista(aux->nombre);
+        cout << "\n";
+        aux = aux->siguienteHijo;
+    }
+}
+
+void comandoMkdir(Nodo* actual, ListaCaracteres* nombre) {
+    if (!actual || !nombre) {
+        cout << "Error: Parametros invalidos.\n";
+        if (nombre) liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    if (buscarEnCarpeta(actual, nombre)) {
+        cout << "Error: Ya existe una carpeta o archivo con ese nombre.\n";
+        liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    Nodo* nuevo = new Nodo(nombre, true, actual);
+    insertarHijo(actual, nuevo);
+    cout << "Directorio '";
+    imprimirLista(nombre);
+    cout << "' creado exitosamente.\n";
+    liberarListaCaracteres(nombre);
+}
+
+void comandoTouch(Nodo* actual, ListaCaracteres* nombre) {
+    if (!actual || !nombre) {
+        cout << "Error: Parametros invalidos.\n";
+        if (nombre) liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    if (buscarEnCarpeta(actual, nombre)) {
+        cout << "Error: El archivo ya existe.\n";
+        liberarListaCaracteres(nombre);
+        return;
+    }
+    
+    Nodo* nuevo = new Nodo(nombre, false, actual);
+    insertarHijo(actual, nuevo);
+    cout << "Archivo '";
+    imprimirLista(nombre);
+    cout << "' creado exitosamente.\n";
+    liberarListaCaracteres(nombre);
+}
+
+void comandoCd(Nodo* &actual, Nodo* raiz, ListaCaracteres* ruta) {
+    if (!ruta) {
+        cout << "Error: Ruta no especificada.\n";
+        return;
+    }
+    
+    // Casos especiales
+    ListaCaracteres* raizStr = crearListaDesdeConstante("/");
+    ListaCaracteres* padreStr = crearListaDesdeConstante("..");
+    ListaCaracteres* actualStr = crearListaDesdeConstante(".");
+    
+    if (compararListas(ruta, raizStr)) {
+        actual = raiz;
+        cout << "Cambiado al directorio raiz.\n";
+    }
+    else if (compararListas(ruta, padreStr)) {
+        if (actual->padre) {
+            actual = actual->padre;
+            cout << "Cambiado al directorio padre.\n";
+        } else {
+            cout << "Ya estas en el directorio raiz.\n";
+        }
+    }
+    else if (compararListas(ruta, actualStr)) {
+        cout << "Ya estas en este directorio.\n";
+    }
+    else {
+        // Buscar en el directorio actual
+        Nodo* destino = buscarEnCarpeta(actual, ruta);
+        if (destino && destino->esCarpeta) {
+            actual = destino;
+            cout << "Cambiado al directorio '";
+            imprimirLista(ruta);
+            cout << "'.\n";
+        } else {
+            cout << "Error: Directorio no encontrado.\n";
+        }
+    }
+    
+    liberarListaCaracteres(raizStr);
+    liberarListaCaracteres(padreStr);
+    liberarListaCaracteres(actualStr);
+    liberarListaCaracteres(ruta);
+}
